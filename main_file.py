@@ -25,11 +25,11 @@ soup = BeautifulSoup(html_text, 'lxml')
 img_url = "https://yandex.ru" + str(soup.find('div', class_ = "serp-item__preview").find('a', class_ = "serp-item__link").get('href'))
 print('im=======', img_url)
 
-imgs_url = list(soup.find_all('div', class_ = "serp-item__preview").find('a', class_ = "serp-item__link").get('href'))
+# imgs_url = list(soup.find_all('div', class_ = "serp-item__preview").find('a', class_ = "serp-item__link").get('href'))
 
-for i in range (10):
-    imgs_url[i] = "https://yandex.ru" + str(imgs_url)
-print("imgs_url = \n", imgs_url)
+# for i in range (10):
+#     imgs_url[i] = "https://yandex.ru" + str(imgs_url)
+# print("imgs_url = \n", imgs_url)
 # img = requests.get(img_url)
 # img_op = open('2' + '.jpg', 'wb')
 # img_op.write(img.content) 
