@@ -16,12 +16,12 @@ def Image_Search(Count_Find):
     num_page = 0
     i = 0
     while True:
-        URL_brown = f'https://yandex.ru/images/search?p={num_page}2&text=brown%20bear&lr=51&rpt=image&uinfo=sw-1366-sh-768-ww-780-wh-625-pd-1-wp-16x9_1366x768'
+        URL_brown = f'https://yandex.ru/images/search?p={num_page}&text=brown%20bear&lr=51&from=tabbar&rpt=image'
         num_page += 1
         print(num_page)
         html_text_brown = requests.get(URL_brown).content
         soup_brown = BeautifulSoup(html_text_brown, 'html.parser')
-        time.sleep(3)
+        time.sleep(10)
         
         urls_brown = []
 
@@ -33,6 +33,10 @@ def Image_Search(Count_Find):
 
 def Save_Brown_Bears(urls_brown, Count_Find, i):
     for url in urls_brown:
+        if url.find('captcha') != -1 :
+            print("\nCAPTCHA ERROR")
+            Finish()
+        print(url)
         if url.find('n=13') != -1 :
             try:
                 filename = str(i) + '.jpg'
@@ -59,4 +63,6 @@ os.mkdir("brown bears")
 os.chdir("brown bears")
 print("Текущая деректория:", os.getcwd())
 
-Image_Search(100)
+
+Count_Find = 1100
+Image_Search(Count_Find)

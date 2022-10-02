@@ -15,15 +15,15 @@ import cv2
 import time
 
 def Image_Search(Count_Find):
-    num_page = 0
+    num_page = 1
     i = 0
     while True:
-        URL_polar = f'https://yandex.ru/images/search?pos={num_page}&text=polar%20bear&uinfo=sw-1366-sh-768-ww-780-wh-625-pd-1-wp-16x9_1366x768&lr=51&rpt=image'
+        URL_polar = f'https://yandex.ru/images/search?p={num_page}&from=tabbar&text=polar%20bear&lr=51&rpt=image'
         num_page += 1
         print(num_page)
         html_text_polar = requests.get(URL_polar).content
         soup_polar = BeautifulSoup(html_text_polar, 'html.parser')
-        time.sleep(3)
+        time.sleep(10)
         
         urls_polar = []
 
@@ -35,6 +35,10 @@ def Image_Search(Count_Find):
 
 def Save_Polar_Bears(urls_polar, Count_Find, i):
     for url in urls_polar:
+        if url.find('captcha') != -1 :
+            print("\nCAPTCHA ERROR")
+            Finish()
+        print(url)
         if url.find('n=13') != -1 :
             try:
                 filename = str(i) + '.jpg'
@@ -60,5 +64,5 @@ if os.path.isdir("polar bears") == 1:
 os.mkdir("polar bears")
 os.chdir("polar bears")
 print("Текущая деректория:", os.getcwd())
-
-Image_Search(100)
+Count_Find = 1000
+Image_Search(Count_Find)
