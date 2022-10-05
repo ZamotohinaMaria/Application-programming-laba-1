@@ -1,45 +1,38 @@
-import importlib
 import os
 from bs4 import BeautifulSoup
 import requests
-import re
-from re import I, sub
-from decimal import Decimal
-import io
-from datetime import datetime 
-import pandas as pd
 import shutil
-import cv2
 import time
 
-def Image_Search(Count_Find):
+
+def image_search(count_find):
     num_page = 0
     i = 0
     while True:
-        URL_brown = f'https://yandex.ru/images/search?p={num_page}&text=brown%20bear&lr=51&from=tabbar&rpt=image'
+        url_brown = f'https://yandex.ru/images/search?p={num_page}&text=brown%20bear&lr=51&from=tabbar&rpt=image'
         num_page += 1
         print(num_page)
-        html_text_brown = requests.get(URL_brown).content
+        html_text_brown = requests.get(url_brown).content
         soup_brown = BeautifulSoup(html_text_brown, 'html.parser')
-        time.sleep(10)
+        time.sleep(15)
         
         urls_brown = []
 
         for link in soup_brown.find_all('img'):
             urls_brown.append("https:" + link.get('src'))
         
-        i = Save_Brown_Bears(urls_brown, Count_Find, i)
+        i = save_images(urls_brown, count_find, i)
 
 
-def Save_Brown_Bears(urls_brown, Count_Find, i):
+def save_images(urls_brown, count_find, i):
     for url in urls_brown:
-        if url.find('captcha') != -1 :
+        if url.find('captcha') != -1:
             print("\nCAPTCHA ERROR")
-            Finish()
+            finish()
         print(url)
-        if url.find('n=13') != -1 :
+        if url.find('n=13') != -1:
             try:
-                filename = str(i) + '.jpg'
+                filename = str(i).zfill(4) + '.jpg'
                 img = requests.get(url)
                 img_op = open(filename, 'wb')
                 img_op.write(img.content)
@@ -47,22 +40,23 @@ def Save_Brown_Bears(urls_brown, Count_Find, i):
                 i += 1
             except:
                 print("Error after", i)
-            if i == Count_Find:
-                Finish()
+            if i == count_find:
+                finish()
     return i
 
 
-def Finish():
+def finish():
     print("\nProgramm is finished\n")
     exit(0)
 
-print("Текущая деректория:", os.getcwd())
-if os.path.isdir("brown bears") == 1:
-    shutil.rmtree('brown bears')
-os.mkdir("brown bears")
-os.chdir("brown bears")
-print("Текущая деректория:", os.getcwd())
 
+if __name__ == '__main__':
+    print("Текущая деректория:", os.getcwd())
+    if os.path.isdir("dataset_brown_bears") == 1:
+        shutil.rmtree('dataset_brown_bears')
+    os.mkdir("dataset_brown_bears")
+    os.chdir("dataset_brown_bears")
+    print("Текущая деректория:", os.getcwd())
 
-Count_Find = 1100
-Image_Search(Count_Find)
+    Count_Find = 1100
+    image_search(Count_Find)
