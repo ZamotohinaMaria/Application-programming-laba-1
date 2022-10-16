@@ -27,8 +27,8 @@ def convert_images(way_name, save_way_name, count_get):
     i = 0
 
     for im in images:
-        save_way = str(i).zfill(4) + '.jpg'
-        cv2.imwrite(save_way, im)
+        save_name = str(i).zfill(4) + '.jpg'
+        cv2.imwrite(save_name, im)
         i += 1
 
 

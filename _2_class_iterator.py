@@ -1,9 +1,14 @@
 class Iterator:
-    def __init__(self, start=0):
+    def __init__(self, start=0, limit=0):
+        self.limit = limit
         self.num = start
     def __iter__(self):
         return self
     def __next__(self):
-        num = self.num
-        self.num += 1
+        if self.num < self.limit:
+            num = self.num
+            self.num += 1
+        else:
+            raise StopIteration
         return num
+
