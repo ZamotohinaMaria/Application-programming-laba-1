@@ -3,6 +3,7 @@ import csv
 from _2_class_iterator import Iterator
 
 def write_in_cvs_file(class_name):
+    print("Текущая деректория:", os.getcwd())
     with open("dataset.csv", mode="a", newline='', encoding='utf-8') as file:
         file_writer = csv.writer(file, delimiter = ",", lineterminator="\n")
         i = Iterator()
@@ -21,7 +22,7 @@ def main():
         file_writer.writerow(["Absolute Path", "Relative Path", "Class Label"])
         write_in_cvs_file("brown_bears")
         write_in_cvs_file("polar_bears")
-    print("programm finished")
+    print("programm _2_create_cvs_dataset finished")
 
 if __name__ == '__main__':
     main()

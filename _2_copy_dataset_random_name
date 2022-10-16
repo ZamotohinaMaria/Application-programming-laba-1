@@ -1,0 +1,67 @@
+import os
+import cv2
+import csv
+import shutil
+import random
+from _2_class_iterator import Iterator
+
+def write_in_cvs_file(class_name, img_name):
+    print("Текущая деректория для записи в файл 1:", os.getcwd())
+    os.chdir("..")
+    os.chdir("..")
+    print("Текущая деректория для записи в файл 2:", os.getcwd())
+    with open("dataset_random_name.csv", mode="a", newline='', encoding='utf-8') as file:
+        file_writer = csv.writer(file, delimiter = ",", lineterminator="\n")
+        relative_way = f'dataset/dataset_random_name/{img_name}.jpg'
+        absolute_way =  os.path.abspath(relative_way)
+        print('aw  ',absolute_way,'\nrw  ', relative_way,'\n', class_name)
+        if os.path.isfile(relative_way):
+            file_writer.writerow([absolute_way, relative_way, class_name])
+    os.chdir("dataset/dataset_random_name")
+
+def copy_images(way_name, save_way_name, class_name, count_get):
+    os.chdir(way_name)
+    images_way = []
+
+    print("Текущая деректория при сборе файлов:", os.getcwd())
+    i = Iterator()
+    while i.num != count_get:
+        images_way.append(str(i.num).zfill(4) + '.jpg')
+        i.__next__()
+
+    images = []
+    for im in images_way:
+        images.append(cv2.imread(im))
+
+    os.chdir("..")
+    if os.path.isdir(save_way_name) == 0:
+        os.mkdir(save_way_name)
+        os.chdir(save_way_name)
+    else:
+        os.chdir(save_way_name)
+    print("Текущая деректория при сохранении файлов:", os.getcwd())
+
+    i = Iterator()
+
+    for im in images:
+        new_name = str(random.randint(0, 10001)).zfill(5)
+        while os.path.isfile(new_name) == True:
+            new_name = str(random.randint(0, 10001)).zfill(5)
+        save_name = f'{class_name}_{new_name}.jpg'
+        cv2.imwrite(save_name, im)
+        write_in_cvs_file(class_name, new_name)
+        i.__next__()
+
+def main():
+    with open("dataset_random_name.csv", mode="w", encoding='utf-8') as file:
+        file_writer = csv.writer(file, delimiter = ",", lineterminator="\n")
+        file_writer.writerow(["Absolute Path", "Relative Path", "Class Label"])
+        os.chdir("dataset")
+        if os.path.isdir("dataset_random_name") == 1:
+            shutil.rmtree("dataset_random_name")
+        copy_images("brown_bears", "dataset_random_name","brown_bears", 4)
+        os.chdir("..")
+        copy_images("polar_bears", "dataset_random_name","polar_bears", 5)
+        print("programm _2_copy_dataset_name finished")
+if __name__ == '__main__':
+    main()
