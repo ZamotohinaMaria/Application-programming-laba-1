@@ -4,40 +4,29 @@ import shutil
 from _2_class_iterator import Iterator
 
 def copy_images(way_name, save_way_name, class_name, count_get):
-    os.chdir(way_name)
+    way = f'dataset/{class_name}'
+    print(way)
     images_way = []
-
-    print("Текущая деректория:", os.getcwd())
     i = Iterator()
     while i.num != count_get:
-        images_way.append(str(i.num).zfill(4) + '.jpg')
+        images_way.append(way + '/' + str(i.num).zfill(4) + '.jpg')
         i.__next__()
-
     images = []
     for im in images_way:
         images.append(cv2.imread(im))
 
-    os.chdir("..")
-    if os.path.isdir(save_way_name) == 0:
-        os.mkdir(save_way_name)
-        os.chdir(save_way_name)
-    else:
-        os.chdir(save_way_name)
-    print("Текущая деректория:", os.getcwd())
-
+    print('dataset/dataset_name')
     i = Iterator()
-
     for im in images:
-        save_name = f'{class_name}_{str(i.num).zfill(4)}.jpg'
+        save_name = f'dataset/dataset_name/{class_name}_{str(i.num).zfill(4)}.jpg'
         cv2.imwrite(save_name, im)
         i.__next__()
 
 def main():
-    os.chdir("dataset")
-    if os.path.isdir("dataset_name") == 1:
-        shutil.rmtree("dataset_name")
+    if os.path.isdir("dataset/dataset_name") == 1:
+        shutil.rmtree("dataset/dataset_name")
+    os.mkdir("dataset/dataset_name")
     copy_images("brown_bears", "dataset_name","brown_bears", 1100)
-    os.chdir("..")
     copy_images("polar_bears", "dataset_name","polar_bears", 1100)
     print("programm _2_copy_dataset_name finished")
 
