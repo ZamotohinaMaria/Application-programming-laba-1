@@ -1,5 +1,5 @@
 class Iterator:
-    def __init__(self, start=0, limit=0):
+    def __init__(self, start=0, limit=1100):
         self.limit = limit
         self.num = start
     def __iter__(self):
