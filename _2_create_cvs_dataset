@@ -2,6 +2,7 @@ import os
 import csv
 from _2_class_iterator import Iterator
 
+
 def write_in_cvs_file(class_name):
     print("Текущая деректория:", os.getcwd())
     with open("dataset.csv", mode="a", newline='', encoding='utf-8') as file:
@@ -9,20 +10,22 @@ def write_in_cvs_file(class_name):
         i = Iterator()
         while i.num != 1100:
             relative_way = f'dataset/{class_name}/{str(i.num).zfill(4)}.jpg'
-            absolute_way =  os.path.abspath(relative_way)
+            absolute_way = os.path.abspath(relative_way)
             if i.num == 0:
-                print('aw  ',absolute_way,'\nrw  ', relative_way,'\n', class_name)
+                print('aw  ', absolute_way, '\nrw  ', relative_way, '\n', class_name)
             if os.path.isfile(relative_way) == True:
                 file_writer.writerow([absolute_way, relative_way, class_name])
             i.__next__()
+
 
 def main():
     with open("dataset.csv", mode="w", encoding='utf-8') as file:
         file_writer = csv.writer(file, delimiter = ",", lineterminator="\n")
         file_writer.writerow(["Absolute Path", "Relative Path", "Class Label"])
-        write_in_cvs_file("brown_bears")
-        write_in_cvs_file("polar_bears")
-    print("programm _2_create_cvs_dataset finished")
+    write_in_cvs_file("brown_bears")
+    write_in_cvs_file("polar_bears")
+    print("program _2_create_cvs_dataset finished")
+
 
 if __name__ == '__main__':
     main()
