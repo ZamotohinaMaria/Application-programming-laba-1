@@ -1,3 +1,4 @@
 
 .venv
 __pycache__/_2_class_iterator.cpython-39.pyc
+*.pyc
