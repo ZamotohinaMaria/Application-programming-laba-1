@@ -2,14 +2,13 @@ import csv
 import os
 
 
-def write_in_cvs_file(class_name):
+def write_in_cvs_file(file_name, class_name):
     """write inforamtion about images into csv file
 
     Args:
         class_name (_type_): image's class name
     """
-    print('Текущая деректория:', os.getcwd())
-    with open('dataset.csv', mode='a', newline='', encoding='utf-8') as file:
+    with open(file_name, mode='a', newline='', encoding='utf-8') as file:
         file_writer = csv.writer(file, delimiter=',', lineterminator='\n')
         i = 0
         while i != 1100:
@@ -23,14 +22,14 @@ def write_in_cvs_file(class_name):
             i += 1
 
 
-def main():
+def main(file_name):
     """main function
     """
-    with open('dataset.csv', mode='w', encoding='utf-8') as file:
+    with open(file_name, mode='w', encoding='utf-8') as file:
         file_writer = csv.writer(file, delimiter=',', lineterminator='\n')
         file_writer.writerow(['Absolute Path', 'Relative Path', 'Class Label'])
-    write_in_cvs_file('brown_bears')
-    write_in_cvs_file('polar_bears')
+    write_in_cvs_file(file_name, 'brown_bears')
+    write_in_cvs_file(file_name, 'polar_bears')
     print('program _2_create_cvs_dataset finished')
 
 

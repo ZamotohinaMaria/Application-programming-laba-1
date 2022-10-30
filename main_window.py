@@ -18,8 +18,7 @@ class Window( QMainWindow):
         super().__init__()
 
         self.initUI() 
-    #ДОБАВИТЬ QSplitter ДЛЯ КРАСОТЫ!!!!!! (виджеты часть 2)
-    #инициализация пользовательского интерфейса
+    
     def initUI(self):
         
         self.btn_x_size = 270
@@ -101,11 +100,11 @@ class Window( QMainWindow):
             self.create_csv_dataset
     
     def create_csv_dataset(self):
-        print("")
+        _2_create_cvs_dataset.main('files_dataset.csv')
     def copy_dataset_name(self):
-        print("")   
+        _2_copy_dataset_name.main('copy_dataset_name.csv')
     def copy_dataset_random_name(self):
-        print("")
+        _2_copy_dataset_random_name.main('copy_dataset_random_name.csv')
     def previous_brown(self):
         print("")
     def next_brown(self):

@@ -3,14 +3,14 @@ import os
 import shutil
 
 
-def write_in_cvs_file(class_name, img_name):
+def write_in_cvs_file(file_name, class_name, img_name):
     """write inforamtion about images into csv file
 
     Args:
         class_name (_type_): image's class name
         img_name (_type_): image name
     """
-    with open('dataset_name.csv', mode='a', newline='', encoding='utf-8') as file:
+    with open(file_name, mode='a', newline='', encoding='utf-8') as file:
         file_writer = csv.writer(file, delimiter=',', lineterminator='\n')
         relative_way = f'dataset/dataset_name/{img_name}'
         absolute_way = os.path.abspath(relative_way)
@@ -18,7 +18,7 @@ def write_in_cvs_file(class_name, img_name):
             [absolute_way, relative_way, class_name, img_name])
 
 
-def copy_images(class_name, count_get):
+def copy_images(file_name, class_name, count_get):
     """copying images from one folder to another with new names
 
     Args:
@@ -38,22 +38,22 @@ def copy_images(class_name, count_get):
     for im in images_way:
         save_way = f'dataset/dataset_name/{class_name}_{str(i).zfill(4)}.jpg'
         shutil.copyfile(im, save_way)
-        write_in_cvs_file(class_name, str(i).zfill(4) + '.jpg')
+        write_in_cvs_file(file_name, class_name, str(i).zfill(4) + '.jpg')
         i += 1
 
 
-def main():
+def main(file_name):
     """main function
     """
-    with open('dataset_name.csv', mode='w', encoding='utf-8') as file:
+    with open(file_name, mode='w', encoding='utf-8') as file:
         file_writer = csv.writer(file, delimiter=',', lineterminator='\n')
         file_writer.writerow(
             ['Absolute Path', 'Relative Path', 'Class Label', 'File name'])
     if os.path.isdir('dataset/dataset_name') == 1:
         shutil.rmtree('dataset/dataset_name')
     os.mkdir('dataset/dataset_name')
-    copy_images('brown_bears', 1100)
-    copy_images('polar_bears', 1100)
+    copy_images(file_name, 'brown_bears', 1100)
+    copy_images(file_name, 'polar_bears', 1100)
     print('program _2_copy_dataset_name finished')
 
 
