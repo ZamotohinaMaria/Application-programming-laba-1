@@ -1,5 +1,6 @@
 import os
 import sys
+from typing import Iterator
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import (QToolTip, QCheckBox, 
     QPushButton, QApplication, QMessageBox, QMainWindow,
@@ -11,6 +12,7 @@ from PyQt5.QtCore import (Qt, QCoreApplication)
 import _2_create_cvs_dataset
 import _2_copy_dataset_name
 import _2_copy_dataset_random_name
+import _2_class_iterator
 
 class Window( QMainWindow):
 
@@ -72,20 +74,12 @@ class Window( QMainWindow):
         
         #кнопка выхода - закрытия окна
         self.qbtn = QPushButton('Quit', self)
-        self.qbtn.resize(50, self.btn_y_size)
+        self.qbtn.setGeometry(0, 0, 50, self.btn_y_size)
         self.qbtn.clicked.connect(QCoreApplication.instance().quit)
         
-        hbox = QHBoxLayout()
-        hbox.addStretch(100)
-        hbox.addWidget(self.qbtn)
-
-        vbox = QVBoxLayout()
-        vbox.addStretch(100)
-        vbox.addLayout(hbox)
-        
-        self.setLayout(hbox)
-        
-        self.folderpath = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select Folder')
+        #self.folderpath = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select folder for dataset')
+        self.image_lbl_brown = QLabel(self)
+        self.brown_iterator = _2_class_iterator.Iterator()
         
         #упраление окошком
         self.setGeometry(100, 100, 1000, 700)
@@ -108,18 +102,19 @@ class Window( QMainWindow):
     def copy_dataset_random_name(self):
         _2_copy_dataset_random_name.main('copy_dataset_random_name.csv')
     def previous_brown(self):
+        print("") 
+    def next_brown(self):
         self.image_way = 'C:\\Users\\zamot\\OneDrive\\Рабочий стол\\машушик\\github\Application-programming-laba-1-2\\dataset\dataset_name\\brown_bears_0000.jpg'
         if os.path.isfile(str(self.image_way)):
             image = QPixmap(self.image_way)
             image.scaled
-            self.lbl = QLabel(self)
-            self.lbl.setPixmap(image)
-            self.lbl.adjustSize()
-            self.lbl.move(100, 1)
-            self.lbl.show()
+            self.image_lbl_brown.clear()
+            self.image_lbl_brown.setPixmap(image)
+            self.image_lbl_brown.adjustSize()
+            self.image_lbl_brown.move(100, 1)
+            self.image_lbl_brown.show()
         else:
             print('image dont find')
-    def next_brown(self):
         print("") 
     def previous_polar(self):
         print("")
