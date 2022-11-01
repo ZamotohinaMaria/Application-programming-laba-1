@@ -23,39 +23,56 @@ class Window( QMainWindow):
     
     def initUI(self):
         
-        self.btn_x_size = 270
+        self.btn_x_size = 300
         self.btn_y_size = 40
+        self.lust = 140
+        btn_font_main = QFont('Arial', 11)
+        btn_StyleSheet_main = 'background-color: #171982; color: #dbdcff; border :1px solid; '
+        btn_font_secondory = QFont('Arial', 10)
+        btn_StyleSheet_secondory = 'background-color: #abacff; border :1px solid;'
         #-------------------------------------------------------------------------------------------------------
         self.btn_create_csv_dataset = QPushButton('Создать аннотацию для датасета', self)
-        self.btn_create_csv_dataset.setGeometry(0, 0, self.btn_x_size, self.btn_y_size)
+        self.btn_create_csv_dataset.setGeometry(self.lust, 0, self.btn_x_size, self.btn_y_size)
+        self.btn_create_csv_dataset.setFont(btn_font_main)
+        self.btn_create_csv_dataset.setStyleSheet(btn_StyleSheet_main)
         self.btn_create_csv_dataset.clicked.connect(self.create_csv_dataset)
         #-------------------------------------------------------------------------------------------------------
-        self.btn_copy_dataset_name = QPushButton('Копировать датасет с новыми именами', self)
-        self.btn_copy_dataset_name.setGeometry(self.btn_x_size, 0, self.btn_x_size, self.btn_y_size)
+        self.btn_copy_dataset_name = QPushButton('Копировать с новыми именами', self)
+        self.btn_copy_dataset_name.setGeometry(self.btn_x_size + self.lust + 5, 0, self.btn_x_size, self.btn_y_size)
+        self.btn_copy_dataset_name.setFont(btn_font_main)
+        self.btn_copy_dataset_name.setStyleSheet(btn_StyleSheet_main)
         self.btn_copy_dataset_name.clicked.connect(self.copy_dataset_name)
         
-        self.csv_name_checkbox = QCheckBox('Создать аннотацию для датасета', self)
-        self.csv_name_checkbox.setGeometry(self.btn_x_size, self.btn_y_size, 200, 40)
-        self.csv_name_checkbox.toggle()
-        self.csv_name_checkbox.stateChanged.connect(self.name_checkbox)
+        self.csv_name= QPushButton('Создать аннотацию для датасета', self)
+        self.csv_name.setGeometry(self.btn_x_size + 40 + self.lust, self.btn_y_size + 5, 230, 30)
+        self.csv_name.setFont(btn_font_secondory)
+        self.csv_name.setStyleSheet(btn_StyleSheet_secondory)
+        self.csv_name.clicked.connect(self.create_csv_name)
         #-------------------------------------------------------------------------------------------------------
-        self.btn_copy_dataset_random_name = QPushButton('Копировать датасет с рандомными именами', self)
-        self.btn_copy_dataset_random_name.setGeometry(2*self.btn_x_size, 0, self.btn_x_size, self.btn_y_size)
+        self.btn_copy_dataset_random_name = QPushButton('Копироватьс рандомными именами', self)
+        self.btn_copy_dataset_random_name.setGeometry(2*self.btn_x_size + self.lust + 10, 0, self.btn_x_size, self.btn_y_size)
+        self.btn_copy_dataset_random_name.setFont(btn_font_main)
+        self.btn_copy_dataset_random_name.setStyleSheet(btn_StyleSheet_main)
         self.btn_copy_dataset_random_name.clicked.connect(self.copy_dataset_random_name)
         
-        self.csv_random_name_checkbox = QCheckBox('Создать аннотацию для датасета', self)
-        self.csv_random_name_checkbox.setGeometry(2*self.btn_x_size, self.btn_y_size, 200, 40)
-        self.csv_random_name_checkbox.toggle()
-        self.csv_random_name_checkbox.stateChanged.connect(self.random_name_checkbox)
+        self.csv_random_name = QPushButton('Создать аннотацию для датасета', self)
+        self.csv_random_name.setGeometry(2*self.btn_x_size + 45 + self.lust, self.btn_y_size + 5, 230, 30)
+        self.csv_random_name.setFont(btn_font_secondory)
+        self.csv_random_name.setStyleSheet(btn_StyleSheet_secondory)
+        self.csv_random_name.clicked.connect(self.create_csv_random_name)
         #-------------------------------------------------------------------------------------------------------
                
         self.brown_bears_next = QPushButton('Следующая картинка бурых мишек --->', self)
         self.brown_bears_next.setGeometry(150, 600, self.btn_x_size, self.btn_y_size)
+        self.brown_bears_next.setFont(btn_font_secondory)
+        self.brown_bears_next.setStyleSheet(btn_StyleSheet_secondory)
         self.brown_bears_next.clicked.connect(self.next_brown)
         #-------------------------------------------------------------------------------------------------------
         
         self.polar_bears_next = QPushButton('Следующая картинка полярных мишек --->', self)
         self.polar_bears_next.setGeometry(750, 600, self.btn_x_size, self.btn_y_size)
+        self.polar_bears_next.setFont(btn_font_secondory)
+        self.polar_bears_next.setStyleSheet(btn_StyleSheet_secondory)
         self.polar_bears_next.clicked.connect(self.next_polar)
 
         
@@ -66,18 +83,17 @@ class Window( QMainWindow):
         self.polar_iterator = _2_class_iterator.Iterator('dataset.csv', 'polar_bears')
         
         #упраление окошком
-        self.setGeometry(100, 100, 1200, 700)
+        self.setGeometry(100, 100, 1200, 675)
         self.setWindowTitle('Icon')
         self.setWindowIcon(QIcon('web.png'))
+        self.setStyleSheet('background-color: #dbdcff;')
         self.show()
 
-    def name_checkbox(self, state):
-        if state == Qt.Checked:
-            self.create_csv_dataset
+    def create_csv_name(self):
+        print('')
             
-    def random_name_checkbox(self, state):
-        if state == Qt.Checked:
-            self.create_csv_dataset
+    def create_csv_random_name(self):
+        print('')
     
     def create_csv_dataset(self):
         _2_create_cvs_dataset.main('files_dataset.csv')
@@ -107,7 +123,7 @@ class Window( QMainWindow):
             self.image_lbl_polar.clear()
             self.image_lbl_polar.setPixmap(image)
             self.image_lbl_polar.adjustSize()
-            self.image_lbl_polar.move(650, 150)
+            self.image_lbl_polar.move(650, 200)
             self.image_lbl_polar.show()
         else:
             print('image dont find')       
