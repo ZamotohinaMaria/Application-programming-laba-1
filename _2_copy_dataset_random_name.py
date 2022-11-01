@@ -63,4 +63,4 @@ def main(file_name):
 
 
 if __name__ == '__main__':
-    main()
+    main('dataset_random_name.csv')

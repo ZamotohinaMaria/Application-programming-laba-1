@@ -38,7 +38,7 @@ def copy_images(file_name, class_name, count_get):
     for im in images_way:
         save_way = f'dataset/dataset_name/{class_name}_{str(i).zfill(4)}.jpg'
         shutil.copyfile(im, save_way)
-        write_in_cvs_file(file_name, class_name, str(i).zfill(4) + '.jpg')
+        write_in_cvs_file(file_name, class_name, class_name + '_' + str(i).zfill(4) + '.jpg')
         i += 1
 
 
@@ -58,4 +58,4 @@ def main(file_name):
 
 
 if __name__ == '__main__':
-    main()
+    main('dataset_name.csv')

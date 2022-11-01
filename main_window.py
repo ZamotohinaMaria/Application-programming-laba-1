@@ -1,12 +1,12 @@
-
+import os
 import sys
-from PyQt5.QtWidgets import (QWidget, QToolTip, QCheckBox, 
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import (QToolTip, QCheckBox, 
     QPushButton, QApplication, QMessageBox, QMainWindow,
     QHBoxLayout, QVBoxLayout, QLabel)
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont
-from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtGui import (QIcon, QPixmap, QFont)
+from PyQt5.QtCore import (Qt, QCoreApplication)
+
 
 import _2_create_cvs_dataset
 import _2_copy_dataset_name
@@ -85,6 +85,8 @@ class Window( QMainWindow):
         
         self.setLayout(hbox)
         
+        self.folderpath = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select Folder')
+        
         #упраление окошком
         self.setGeometry(100, 100, 1000, 700)
         self.setWindowTitle('Icon')
@@ -106,7 +108,17 @@ class Window( QMainWindow):
     def copy_dataset_random_name(self):
         _2_copy_dataset_random_name.main('copy_dataset_random_name.csv')
     def previous_brown(self):
-        print("")
+        self.image_way = 'C:\\Users\\zamot\\OneDrive\\Рабочий стол\\машушик\\github\Application-programming-laba-1-2\\dataset\dataset_name\\brown_bears_0000.jpg'
+        if os.path.isfile(str(self.image_way)):
+            image = QPixmap(self.image_way)
+            image.scaled
+            self.lbl = QLabel(self)
+            self.lbl.setPixmap(image)
+            self.lbl.adjustSize()
+            self.lbl.move(100, 1)
+            self.lbl.show()
+        else:
+            print('image dont find')
     def next_brown(self):
         print("") 
     def previous_polar(self):
@@ -114,16 +126,16 @@ class Window( QMainWindow):
     def next_polar(self):
         print("")          
     #messege box при закрытии
-    def closeEvent(self, event):
+    # def closeEvent(self, event):
 
-        reply = QMessageBox.question(self, 'Message',
-            "Are you sure to quit?", QMessageBox.Yes |
-            QMessageBox.No, QMessageBox.No)
+    #     reply = QMessageBox.question(self, 'Message',
+    #         "Are you sure to quit?", QMessageBox.Yes |
+    #         QMessageBox.No, QMessageBox.No)
 
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
+    #     if reply == QMessageBox.Yes:
+    #         event.accept()
+    #     else:
+    #         event.ignore()
 
 if __name__ == '__main__':
 
