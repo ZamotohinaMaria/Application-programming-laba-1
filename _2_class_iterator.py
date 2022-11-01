@@ -12,7 +12,11 @@ class Iterator:
             reader = csv.reader(file)
             for row in reader:
                 if row[2] == class_name:
-                    self.rows.append(row[0] + ';' + row[2])
+                    # for a in str(row[0]):
+                    #     if a == '\\':
+                    #         str(row[0]).replace('\\', '\\', 2)
+                    #         print('---------------------------------------------')
+                    self.rows.append(row[0])
                     self.limit += 1
 
 
