@@ -114,6 +114,7 @@ class Window( QMainWindow):
             self.image_lbl_brown.move(100, 1)
             self.image_lbl_brown.show()
         else:
+            
             print('image dont find')
         print("") 
     def previous_polar(self):
