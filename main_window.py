@@ -1,12 +1,8 @@
 import os
 import sys
-from typing import Iterator
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import (QToolTip, QCheckBox, 
-    QPushButton, QApplication, QMessageBox, QMainWindow,
-    QHBoxLayout, QVBoxLayout, QLabel)
+from PyQt5.QtWidgets import ( QPushButton, QApplication,
+                             QMainWindow, QLabel)
 from PyQt5.QtGui import (QIcon, QPixmap, QFont)
-from PyQt5.QtCore import (Qt, QCoreApplication)
 
 
 import _2_create_cvs_dataset
