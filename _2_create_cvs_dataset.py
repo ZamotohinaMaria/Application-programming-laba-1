@@ -13,7 +13,7 @@ def write_in_csv_file(folderpath, class_name):
         i = 0
         while i != 1100:
             relative_way = f'dataset/{class_name}/{str(i).zfill(4)}.jpg'
-            absolute_way = f'{folderpath}/{class_name}/{str(i).zfill(4)}.jpg'
+            absolute_way = os.path.abspath(relative_way)
             if i == 0:
                 print('aw ', absolute_way, '\nrw  ',
                       relative_way, '\n', class_name)
