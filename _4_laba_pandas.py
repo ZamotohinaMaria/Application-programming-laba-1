@@ -58,14 +58,9 @@ def create_histograma(dataframe, class_type):
     result = [[], [], []]
     print('class_type = ', class_type)
     if (class_type == 1):
-        class_name = 'brown_bears'
         image_index = random.randint(0, 1100)
     if (class_type == 2):
-        class_name = 'polar_bears'
         image_index = random.randint(1100, 2200)
-    print(dataframe)
-    print('--' * 30)
-    print(filtering(dataframe, class_type))
     image_way = filtering(dataframe, class_type)[
         'absolute_way'].loc[image_index]
 
@@ -90,7 +85,7 @@ def show_histograma(hisrt_data):
     """функция выводит на экран столбчатую гисторамму заданного цвета
 
     Args:
-        hisrt_data (_type_): массив с данными о цвете
+        hisrt_data (_type_): массив с данными о цвете(0 элемент - название цвета, 1 элемент - массив со значениями)
     """
     color = hisrt_data[0]
     name_color = hisrt_data[1]
@@ -184,7 +179,7 @@ def create_dataframe():
     print('input hight')
     h = int(input())
 
-    print(shape_filtering(dataframe, choise, w, h))
+    print(shape_filtering(dataframe, choise, 300, 3001))
 
     dataframe['pixels_count'] = pd.array(pixels_count)
     print('\nmin pixels\n')
@@ -208,9 +203,9 @@ def create_dataframe():
     print('press 1 to show green histogram\n')
     print('press 2 to show red histogram\n')
 
-    choise = int(input())
+    color_choise = int(input())
 
-    show_histograma(about_picture[choise])
+    show_histograma(about_picture[color_choise])
 
 
 def main():
