@@ -5,24 +5,41 @@ import random
 import pandas as pd
 
 
-def filtering(dataframe, class_name):
+def filtering(dataframe, class_type):
+    class_name = ''
+    if (class_type == 1):
+        class_name = 'brown_bears'
+    if (class_type == 2):
+        class_name = 'polar_bears'
+   
+    
     res_dataframe = (dataframe[dataframe.class_name == class_name])
     return res_dataframe
 
 
-def shape_filtering(dataframe, class_name, max_width, max_hight):
+def shape_filtering(dataframe, class_type, max_width, max_hight):
+    if (class_type == 1):
+        class_name = 'brown_bears'
+    if (class_type == 2):
+        class_name = 'polar_bears'
     res_dataframe = (dataframe[dataframe.class_name == class_name][
                      dataframe.image_width <= max_width][dataframe.image_hight <= max_hight])
     return res_dataframe
 
 
-def create_histograma(dataframe, class_name):
+def create_histograma(dataframe, class_type):
     result = [[], [], []]
-    if (class_name == 'brown_beras'):
+    print('class_type = ', class_type)
+    if (class_type == 1):
+        class_name = 'brown_bears'
         image_index = random.randint(0, 1100)
-    if (class_name == 'polar_bears'):
+    if (class_type == 2):
+        class_name = 'polar_bears'
         image_index = random.randint(1100, 2200)
-    image_way = filtering(dataframe, class_name)[
+    print(dataframe)
+    print('--'*30)
+    print(filtering(dataframe, class_type))
+    image_way = filtering(dataframe, class_type)[
         'absolute_way'].loc[image_index]
 
     image = cv2.imread(image_way)
@@ -108,17 +125,33 @@ def create_dataframe():
     dataframe['image_hight'] = pd.array(image_hight)
     dataframe['image_depth'] = pd.array(image_depth)
 
-    print(dataframe.columns)
+
     print(dataframe)
 
     print('\nwidth statistic\n', dataframe['image_width'].describe())
     print('\nhight statistic\n', dataframe['image_hight'].describe())
     print('\ndepth statistic\n', dataframe['image_depth'].describe())
     print('\nclass label statistic\n', dataframe['class_label'].describe())
-
-    print(filtering(dataframe, 'polar_bears'))
+    
+    print('press 1 to chose brown bears\n')
+    print('press 2 to chose polar bears\n')
+    
+    choise = int(input()) 
+    
+    print(filtering(dataframe, choise))
     print('----------------------------------------------------------')
-    print(shape_filtering(dataframe, 'polar_bears', 300, 400))
+    
+    print('press 1 to chose brown bears\n')
+    print('press 2 to chose polar bears\n')
+    
+    choise = int(input()) 
+    
+    print('input width') 
+    w = int(input()) 
+    print('input hight') 
+    h = int(input()) 
+    
+    print(shape_filtering(dataframe, choise, w, h))
 
     dataframe['pixels_count'] = pd.array(pixels_count)
     print('\nmin pixels\n')
@@ -127,13 +160,24 @@ def create_dataframe():
     print(dataframe.groupby('class_name').pixels_count.max())
     print('\nmean pixels\n')
     print(dataframe.groupby('class_name').pixels_count.mean())
-
-    data_for_histograma = create_histograma(dataframe, 'polar_bears')
+    
+    print('press 1 to chose brown bears\n')
+    print('press 2 to chose polar bears\n')
+    
+    choise = int(input()) 
+    
+    data_for_histograma = create_histograma(dataframe, choise)
     about_picture = [(data_for_histograma[0], 'b'),
                      (data_for_histograma[1], 'g'),
                      (data_for_histograma[2], 'r')]
+    
+    print('press 0 to show blue histogram\n')
+    print('press 1 to show green histogram\n')
+    print('press 2 to show red histogram\n')
+    
+    choise = int(input()) 
 
-    show_histograma(about_picture[0])
+    show_histograma(about_picture[choise])
 
 
 def main():
