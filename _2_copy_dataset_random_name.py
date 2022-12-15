@@ -16,7 +16,7 @@ def write_in_cvs_file(folderpath, class_name, img_name):
     with open('copy_dataset_random_name.csv', mode='a', newline='', encoding='utf-8') as file:
         file_writer = csv.writer(file, delimiter=',', lineterminator='\n')
         relative_way = f'dataset/dataset_random_name/{img_name}'
-        absolute_way = f'{folderpath}/dataset_random_name/{img_name}'
+        absolute_way = os.path.abspath(relative_way)
         file_writer.writerow(
             [absolute_way, relative_way, class_name, img_name])
 
