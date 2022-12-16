@@ -39,7 +39,7 @@ def copy_images(folderpath, class_name, count_get):
     print(f'{folderpath}/dataset_random_name')
 
     for im in images_way:
-        new_name = str(random.randint(0, 10001)).zfill(5) + '.jpg'
+        new_name = str(random.randint(0, 10001)).zfill(5) + '.' + class_name + '.jpg'
         while os.path.isfile(new_name):
             new_name = str(random.randint(0, 10001)).zfill(5) + '.jpg'
         save_way = f'{folderpath}/dataset_random_name/{new_name}'

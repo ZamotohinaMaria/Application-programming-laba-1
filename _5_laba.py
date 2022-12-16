@@ -36,7 +36,7 @@ class dataset(torch.utils.data.Dataset):
     #load an one of images
     def __getitem__(self,idx):
         img_path = self.file_list[idx]
-        primt(img_path)
+        print(img_path)
         img = Image.open(img_path)
         img_transformed = self.transform(img)
         
@@ -60,9 +60,14 @@ def main():
     
     
     print(len(images_list))
+    print(images_list[:5])
+    
     print(len(train_list))
+    print(train_list[:5])
+    
     print(len(test_list))
-    print(val_list[:5])
+    print(test_list[:5])
+    
     print(len(val_list))
     print(val_list[:5])
     #-------проверка картинок-----------------------------------
@@ -78,6 +83,8 @@ def main():
 
     plt.axis('off')
     plt.show()
+    
+    print(train_list[0].split('/')[-1].split('.')[0])
     #------------------------------------------------------------
     
     train_transforms =  transforms.Compose([
@@ -103,9 +110,9 @@ def main():
     
     train_data = dataset(train_list, transform=train_transforms)
     test_data = dataset(test_list, transform=test_transforms)
-    val_data = dataset(val_list, transform=test_transforms)
+    val_data = dataset(val_list, transform=val_transforms)
     
-    print(train_data)
+    print(train_data[0])
 
 if __name__ == '__main__':
     main()
