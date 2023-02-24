@@ -10,7 +10,7 @@ def write_in_cvs_file(folderpath, class_name, img_name):
         class_name (_type_): image's class name
         img_name (_type_): image name
     """
-    with open('copy_dataset_name.csv', mode='a', newline='', encoding='utf-8') as file:
+    with open('copy_dataset_name_new.csv', mode='a', newline='', encoding='utf-8') as file:
         file_writer = csv.writer(file, delimiter=',', lineterminator='\n')
         relative_way = f'dataset/dataset_name/{img_name}'
         absolute_way = f'{folderpath}/dataset_name/{img_name}'
@@ -45,7 +45,7 @@ def copy_images(folderpath, class_name, count_get):
 def main(folderpath):
     """main function
     """
-    with open('copy_dataset_name.csv', mode='w', encoding='utf-8') as file:
+    with open('copy_dataset_name_new.csv', mode='w', encoding='utf-8') as file:
         file_writer = csv.writer(file, delimiter=',', lineterminator='\n')
         file_writer.writerow(
             ['Absolute Path', 'Relative Path', 'Class Label', 'File name'])
